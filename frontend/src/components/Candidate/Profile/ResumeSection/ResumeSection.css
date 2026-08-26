@@ -1,0 +1,57 @@
+.resume-section__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.resume-section .profile-section__title {
+    margin-bottom: 6px;
+}
+
+.resume-section__description {
+    margin: 0;
+
+    color: #64748b;
+    font-size: 13px;
+}
+
+.resume-section__action button,
+.resume-section__action a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.resume-section__action button:hover,
+.resume-section__action a:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 600px) {
+    .resume-section__content {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .resume-section__action,
+    .resume-section__action button,
+    .resume-section__action a {
+        width: 100%;
+    }
+}

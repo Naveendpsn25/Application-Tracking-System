@@ -1,0 +1,428 @@
+/* ------------------------------------------------ */
+/* CARD */
+/* ------------------------------------------------ */
+
+.register-card {
+    width: 100%;
+
+    max-width: 650px;
+
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    background: transparent !important;
+}
+
+.register-card-content {
+    padding: 0 !important;
+}
+
+
+/* ------------------------------------------------ */
+/* HEADER */
+/* ------------------------------------------------ */
+
+.register-header {
+    margin-bottom: 22px;
+}
+
+.register-header-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 2.3px;
+}
+
+.register-title {
+    margin: 0 0 6px !important;
+
+    color: #0f172a;
+
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -1px;
+}
+
+.register-subtitle {
+    color: #58708f !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* ------------------------------------------------ */
+/* ALERT */
+/* ------------------------------------------------ */
+
+.register-alert {
+    margin-bottom: 14px;
+
+    border-radius: 10px !important;
+
+    font-size: 13px !important;
+}
+
+
+/* ------------------------------------------------ */
+/* FORM */
+/* ------------------------------------------------ */
+
+.register-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+
+/* ------------------------------------------------ */
+/* INPUTS */
+/* ------------------------------------------------ */
+
+.register-field .MuiOutlinedInput-root {
+    min-height: 50px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.register-field .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #94a3b8;
+}
+
+.register-field
+.MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #2563eb;
+
+    border-width: 1.5px;
+}
+
+.register-field
+.MuiOutlinedInput-root.Mui-focused {
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.register-field
+.MuiInputLabel-root.Mui-focused {
+    color: #2563eb;
+}
+
+.register-field .MuiFormHelperText-root {
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    line-height: 1.2;
+}
+
+
+/* ------------------------------------------------ */
+/* NAME ROW */
+/* ------------------------------------------------ */
+
+.register-name-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* ------------------------------------------------ */
+/* ACCOUNT TYPE */
+/* ------------------------------------------------ */
+
+.register-role-control {
+    width: 100%;
+
+    margin-top: 2px;
+}
+
+.register-role-label {
+    margin-bottom: 8px;
+
+    color: #0f172a !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+}
+
+.register-role-group {
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.register-role-card {
+    width: 100%;
+
+    min-height: 58px;
+
+    margin: 0 !important;
+
+    padding: 9px 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    border: 1px solid #dbe4ef;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.register-role-card:hover {
+    border-color: #93c5fd;
+
+    background: #f8fbff;
+}
+
+.register-role-card .MuiRadio-root {
+    color: #64748b;
+
+    padding: 5px 9px 5px 2px;
+}
+
+.register-role-card
+.Mui-checked {
+    color: #2563eb;
+}
+
+.register-role-card div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.register-role-card strong {
+    color: #0f172a;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.register-role-card span {
+    color: #64748b;
+
+    font-size: 11px;
+
+    line-height: 1.25;
+}
+
+
+/* ------------------------------------------------ */
+/* SUBMIT BUTTON */
+/* ------------------------------------------------ */
+
+.register-button {
+    height: 50px !important;
+
+    margin-top: 5px !important;
+
+    border-radius: 10px !important;
+
+    background: #2563eb !important;
+
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    text-transform: none !important;
+
+    box-shadow:
+        0 10px 24px rgba(37, 99, 235, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.register-button:hover {
+    background: #1d4ed8 !important;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 14px 28px rgba(37, 99, 235, 0.24);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+.register-button-arrow {
+    margin-left: 10px;
+
+    font-size: 18px;
+
+    line-height: 1;
+}
+
+
+/* ------------------------------------------------ */
+/* LOGIN LINK */
+/* ------------------------------------------------ */
+
+.register-login-link {
+    text-align: center;
+
+    margin-top: 0;
+}
+
+.register-login-link p {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.register-login-link a {
+    color: #2563eb;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.register-login-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* ------------------------------------------------ */
+/* SECURITY MESSAGE */
+/* ------------------------------------------------ */
+
+.register-security {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    text-align: center;
+}
+
+.register-security-icon {
+    width: 20px;
+    height: 20px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ecfdf5;
+
+    color: #10b981;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.register-security .MuiTypography-root {
+    font-size: 11px;
+}
+
+
+/* ------------------------------------------------ */
+/* TABLET */
+/* ------------------------------------------------ */
+
+@media (max-width: 1100px) {
+
+    .register-title {
+        font-size: 29px !important;
+    }
+
+    .register-form {
+        gap: 11px;
+    }
+
+    .register-field .MuiOutlinedInput-root {
+        min-height: 48px;
+    }
+
+    .register-role-card {
+        min-height: 55px;
+    }
+
+    .register-button {
+        height: 48px !important;
+    }
+}
+
+
+/* ------------------------------------------------ */
+/* MOBILE */
+/* ------------------------------------------------ */
+
+@media (max-width: 600px) {
+
+    .register-header {
+        margin-bottom: 20px;
+    }
+
+    .register-title {
+        font-size: 28px !important;
+    }
+
+    .register-name-row {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .register-role-group {
+        grid-template-columns: 1fr;
+    }
+
+    .register-role-card {
+        min-height: 54px;
+    }
+}

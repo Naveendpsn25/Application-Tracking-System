@@ -1,0 +1,34 @@
+.candidate-layout {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f9fafb;
+    overflow-x: hidden;
+}
+
+.candidate-layout__content {
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 32px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .candidate-layout__content {
+        padding: 24px;
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 640px) {
+    .candidate-layout__content {
+        padding: 20px 16px;
+    }
+}

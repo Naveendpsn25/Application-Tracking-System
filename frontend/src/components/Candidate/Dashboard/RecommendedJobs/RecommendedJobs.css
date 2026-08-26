@@ -1,0 +1,303 @@
+/* =========================================================
+   RECOMMENDED JOBS
+   ========================================================= */
+
+.recommended-jobs {
+    width: 100%;
+    padding: 28px 30px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.recommended-jobs__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+
+.recommended-jobs__eyebrow {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+
+.recommended-jobs__header h2 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+.recommended-jobs__header p {
+    margin: 7px 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+.recommended-jobs__view-all {
+    padding: 4px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+.recommended-jobs__view-all:hover {
+    color: #1d4ed8;
+}
+
+
+/* =========================================================
+   JOB LIST
+   ========================================================= */
+
+.recommended-jobs__list {
+    display: flex;
+    flex-direction: column;
+
+    border-top: 1px solid #eef0f3;
+}
+
+
+/* =========================================================
+   JOB ITEM
+   ========================================================= */
+
+.recommended-job {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+
+.recommended-job:last-child {
+    border-bottom: none;
+}
+
+
+.recommended-job__main {
+    min-width: 0;
+}
+
+
+.recommended-job__main h3 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+.recommended-job__company {
+    margin: 5px 0 0;
+
+    color: #4b5563;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.recommended-job__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 8px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+.recommended-job__skills {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+
+.recommended-job__skill {
+    padding: 5px 9px;
+
+    background: #f3f6fb;
+
+    border: 1px solid #e5eaf2;
+    border-radius: 6px;
+
+    color: #374151;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
+
+.recommended-job__side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    gap: 12px;
+
+    flex-shrink: 0;
+}
+
+
+.recommended-job__posted {
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+
+.recommended-job__button {
+    padding: 9px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.recommended-job__button:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .recommended-jobs {
+        padding: 24px;
+    }
+
+    .recommended-job {
+        gap: 18px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+    .recommended-jobs {
+        padding: 20px;
+
+        border-radius: 12px;
+    }
+
+    .recommended-jobs__header {
+        align-items: flex-start;
+
+        margin-bottom: 16px;
+    }
+
+    .recommended-jobs__header h2 {
+        font-size: 18px;
+    }
+
+    .recommended-jobs__header p {
+        font-size: 13px;
+    }
+
+    .recommended-job {
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 16px;
+
+        padding: 18px 0;
+    }
+
+    .recommended-job__side {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .recommended-job__button {
+        padding: 9px 13px;
+    }
+}
