@@ -152,7 +152,7 @@ function ProfileCompletion({ profile }) {
             <button
                 type="button"
                 className="profile-completion__button"
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate("/candidate/profile")}
             >
                 {remainingFields === 0
                     ? "View My Profile"

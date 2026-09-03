@@ -11,7 +11,9 @@ import ProfileHero from "../../../components/Candidate/Profile/ProfileHero/Profi
 import PersonalInfo from "../../../components/Candidate/Profile/PersonalInfo/PersonalInfo";
 import OnlinePresence from "../../../components/Candidate/Profile/OnlinePresence/OnlinePresence";
 import SkillsInfo from "../../../components/Candidate/Profile/SkillsInfo/SkillsInfo";
-
+import ProfessionalSummary from "../../../components/Candidate/Profile/ProfessionalSummary/ProfessionalSummary";
+import ExperienceInfo from "../../../components/Candidate/Profile/ExperienceInfo/ExperienceInfo";
+import ResumeSection from "../../../components/Candidate/Profile/ResumeSection/ResumeSection";
 import "./CandidateProfile.css";
 
 function CandidateProfile() {
@@ -165,13 +167,8 @@ function CandidateProfile() {
 
             <ProfileHero
                 profile={profile}
-                isEditing={isEditing}
                 saving={saving}
-                onEdit={() => {
-                    setError("");
-                    setSuccessMessage("");
-                    setIsEditing(true);
-                }}
+                onUpdate={fetchProfile}
                 onCancel={() => {
                     setError("");
                     setSuccessMessage("");
@@ -186,13 +183,28 @@ function CandidateProfile() {
                 onUpdate={handleProfileUpdate}
             />
 
-            <EducationInfo
+            <ProfessionalSummary
                 profile={profile}
                 isEditing={isEditing}
                 saving={saving}
                 onUpdate={handleProfileUpdate}
             />
 
+            <ResumeSection
+                profile={profile}
+                onProfileRefresh={fetchProfile}
+                className="resume"
+            />
+
+            <EducationInfo
+                profile={profile}
+                isEditing={isEditing}
+                saving={saving}
+                onUpdate={handleProfileUpdate}
+                className="education"
+            />
+
+            <ExperienceInfo className="experience"/>
             <OnlinePresence />
             <SkillsInfo />
 

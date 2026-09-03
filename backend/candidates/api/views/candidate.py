@@ -6,7 +6,11 @@ from rest_framework.permissions import IsAuthenticated
 from accounts.choices import UserRole
 from candidates.models import CandidateProfile
 from candidates.api.serializers import CandidateProfileSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import (
+    JSONParser,
+    MultiPartParser,
+    FormParser,
+)
 
 class CandidateProfileAPIView(APIView):
     """
@@ -17,6 +21,7 @@ class CandidateProfileAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     parser_classes = [
+        JSONParser,
         MultiPartParser,
         FormParser,
     ]
@@ -87,6 +92,9 @@ class CandidateProfileAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+        # Keep reference to the existing resume
+        old_resume = profile.resume
+
         serializer = CandidateProfileSerializer(
             profile,
             data=request.data,
@@ -103,6 +111,17 @@ class CandidateProfileAPIView(APIView):
             )
 
         serializer.save()
+
+        # ==================================================
+        # DELETE OLD RESUME FROM STORAGE
+        # ==================================================
+
+        if (
+            "resume" in request.data
+            and request.data.get("resume") in [None, "", "null"]
+        ):
+            if old_resume:
+                old_resume.delete(save=False)
 
         return Response(
             {

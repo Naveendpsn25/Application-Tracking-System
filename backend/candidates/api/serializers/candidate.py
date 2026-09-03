@@ -43,6 +43,8 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
+    profile_completion = serializers.SerializerMethodField()
+
     class Meta:
         model = CandidateProfile
 
@@ -87,6 +89,7 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
 
             # Status
             "is_profile_completed",
+            "profile_completion",
         )
 
         read_only_fields = (
@@ -167,18 +170,20 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
 
         user = instance.user
 
-        phone_number = validated_data.pop(
-            "phone_number",
-            None,
+        user_data = validated_data.pop(
+            "user",
+            {}
+        )
+
+        phone_number = user_data.get(
+            "phone_number"
         )
 
         if phone_number is not None:
             user.phone_number = phone_number
-
             user.save(
                 update_fields=["phone_number"]
             )
-
         # --------------------------------------------------
         # CandidateProfile fields
         # --------------------------------------------------
@@ -250,6 +255,209 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+    def get_profile_completion(self, instance):
+        """
+        Calculate candidate profile completion
+        based on 10 meaningful profile sections.
+        """
+
+        items = []
+
+        # --------------------------------------------------
+        # 1. Profile Photo
+        # --------------------------------------------------
+        items.append({
+            "key": "profile_photo",
+            "label": "Profile Photo",
+            "completed": self._has_value(
+                instance.profile_image
+            ),
+        })
+
+        # --------------------------------------------------
+        # 2. Personal Information
+        # DOB + Gender + Phone
+        # --------------------------------------------------
+        personal_information_completed = (
+            self._has_value(instance.date_of_birth)
+            and self._has_value(instance.gender)
+            and self._has_value(
+                instance.user.phone_number
+            )
+        )
+
+        items.append({
+            "key": "personal_information",
+            "label": "Personal Information",
+            "completed": personal_information_completed,
+        })
+
+        # --------------------------------------------------
+        # 3. Education
+        # Qualification + Specialization + College
+        # Graduation Year + CGPA
+        # --------------------------------------------------
+        education_completed = (
+            self._has_value(
+                instance.highest_qualification
+            )
+            and self._has_value(
+                instance.specialization
+            )
+            and self._has_value(
+                instance.college_name
+            )
+            and self._has_value(
+                instance.graduation_year
+            )
+            and self._has_value(
+                instance.cgpa
+            )
+        )
+
+        items.append({
+            "key": "education",
+            "label": "Education",
+            "completed": education_completed,
+        })
+
+        # --------------------------------------------------
+        # 4. Career Information
+        # --------------------------------------------------
+        if instance.career_status == "FRESHER":
+
+            career_completed = True
+
+        elif instance.career_status == "EXPERIENCED":
+
+            career_completed = (
+                self._has_value(
+                    instance.experience_years
+                )
+                and self._has_value(
+                    instance.current_company
+                )
+                and self._has_value(
+                    instance.current_ctc
+                )
+                and self._has_value(
+                    instance.expected_ctc
+                )
+                and self._has_value(
+                    instance.notice_period
+                )
+            )
+
+        else:
+            career_completed = False
+
+        items.append({
+            "key": "career_information",
+            "label": "Career Information",
+            "completed": career_completed,
+        })
+
+        # --------------------------------------------------
+        # 5. Current Location
+        # --------------------------------------------------
+        items.append({
+            "key": "current_location",
+            "label": "Current Location",
+            "completed": self._has_value(
+                instance.current_location
+            ),
+        })
+
+        # --------------------------------------------------
+        # 6. Preferred Location
+        # --------------------------------------------------
+        items.append({
+            "key": "preferred_location",
+            "label": "Preferred Location",
+            "completed": self._has_value(
+                instance.preferred_location
+            ),
+        })
+
+        # --------------------------------------------------
+        # 7. Skills
+        # --------------------------------------------------
+        items.append({
+            "key": "skills",
+            "label": "Skills",
+            "completed": self._has_value(
+                instance.skills
+            ),
+        })
+
+        # --------------------------------------------------
+        # 8. Professional Summary
+        # --------------------------------------------------
+        items.append({
+            "key": "professional_summary",
+            "label": "Professional Summary",
+            "completed": self._has_value(
+                instance.summary
+            ),
+        })
+
+        # --------------------------------------------------
+        # 9. Resume
+        # --------------------------------------------------
+        items.append({
+            "key": "resume",
+            "label": "Resume",
+            "completed": self._has_value(
+                instance.resume
+            ),
+        })
+
+        # --------------------------------------------------
+        # 10. Online Presence
+        # LinkedIn + GitHub + Portfolio
+        # ALL THREE REQUIRED
+        # --------------------------------------------------
+        online_presence_completed = (
+            self._has_value(
+                instance.linkedin_url
+            )
+            and self._has_value(
+                instance.github_url
+            )
+            and self._has_value(
+                instance.portfolio_url
+            )
+        )
+
+        items.append({
+            "key": "online_presence",
+            "label": "Online Presence",
+            "completed": online_presence_completed,
+        })
+
+        # --------------------------------------------------
+        # Overall percentage
+        # --------------------------------------------------
+        completed_count = sum(
+            1
+            for item in items
+            if item["completed"]
+        )
+
+        total_count = len(items)
+
+        percentage = round(
+            (completed_count / total_count) * 100
+        )
+
+        return {
+            "percentage": percentage,
+            "completed_count": completed_count,
+            "total_count": total_count,
+            "items": items,
+        }
     @staticmethod
     def _has_value(value):
         """

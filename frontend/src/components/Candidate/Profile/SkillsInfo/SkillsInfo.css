@@ -4,7 +4,7 @@
 
 .skills-section {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 0px;
 }
 
 
@@ -17,7 +17,7 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 
 .skills-section__title {

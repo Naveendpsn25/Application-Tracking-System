@@ -8,6 +8,9 @@ class RecruiterProfileAdmin(admin.ModelAdmin):
     """
     Admin configuration for the RecruiterProfile model.
     """
+    @admin.display(boolean=True, description="Admin approved")
+    def is_approved(self, obj):
+        return obj.user.is_approved
 
     list_display = (
         "user",
@@ -16,7 +19,8 @@ class RecruiterProfileAdmin(admin.ModelAdmin):
         "designation",
         "department",
         "experience_years",
-        "is_primary_recruiter",
+        "is_primary_recruiter", 
+        "is_approved",
         "is_active",
     )
 
@@ -26,6 +30,7 @@ class RecruiterProfileAdmin(admin.ModelAdmin):
         "is_primary_recruiter",
         "is_active",
         "company",
+        "user__is_approved",
     )
 
     search_fields = (

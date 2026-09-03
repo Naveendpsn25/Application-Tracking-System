@@ -9,12 +9,18 @@ function PendingApproval() {
     const navigate = useNavigate();
 
     const user = useAuthStore((state) => state.user);
+    // console.log("Recruiter user:", user);
     const logout = useAuthStore((state) => state.logout);
 
     const handleLogout = () => {
         logout();
         navigate("/login", { replace: true });
     };
+
+    if (user?.is_approved) {
+        navigate("/recruiter/dashboard", { replace: true });
+        return null;
+    }
 
     return (
         <main className="pending-page">

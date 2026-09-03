@@ -4,11 +4,11 @@ import "./PersonalInfo.css";
 
 function PersonalInfo({
     profile,
-    isEditing,
+    isEditing: parentIsEditing,
     saving,
     onUpdate,
 }) {
-    const [isAdding, setIsAdding] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
@@ -16,30 +16,37 @@ function PersonalInfo({
 
     const [error, setError] = useState("");
 
-    const hasPersonalData =
-        Boolean(profile?.date_of_birth) ||
-        Boolean(profile?.gender) ||
-        Boolean(profile?.user?.phone_number);
-
     useEffect(() => {
         if (!profile) {
             return;
         }
 
-        setDateOfBirth(
-            profile.date_of_birth || ""
-        );
-
-        setGender(
-            profile.gender || ""
-        );
-
-        setPhoneNumber(
-            profile.user?.phone_number || ""
-        );
+        setDateOfBirth(profile.date_of_birth || "");
+        setGender(profile.gender || "");
+        setPhoneNumber(profile.user?.phone_number || "");
     }, [profile]);
 
-    const handleAdd = async () => {
+    const handleEdit = () => {
+        setError("");
+
+        setDateOfBirth(profile?.date_of_birth || "");
+        setGender(profile?.gender || "");
+        setPhoneNumber(profile?.user?.phone_number || "");
+
+        setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+        setError("");
+
+        setDateOfBirth(profile?.date_of_birth || "");
+        setGender(profile?.gender || "");
+        setPhoneNumber(profile?.user?.phone_number || "");
+
+        setIsEditing(false);
+    };
+
+    const handleSave = async () => {
         try {
             setError("");
 
@@ -53,7 +60,7 @@ function PersonalInfo({
                 return;
             }
 
-            if (!phoneNumber) {
+            if (!phoneNumber.trim()) {
                 setError("Please provide your phone number.");
                 return;
             }
@@ -61,93 +68,49 @@ function PersonalInfo({
             await onUpdate({
                 date_of_birth: dateOfBirth,
                 gender,
-                phone_number: phoneNumber,
+                phone_number: phoneNumber.trim(),
             });
 
-            setIsAdding(false);
+            setIsEditing(false);
         } catch (error) {
             console.error(
-                "Personal information add error:",
+                "Personal information update error:",
                 error
             );
 
             setError(
                 error.message ||
-                "Unable to save personal information."
+                "Unable to update personal information."
             );
         }
-    };
-
-    const handleCancel = () => {
-        setIsAdding(false);
-        setError("");
-
-        setDateOfBirth(
-            profile?.date_of_birth || ""
-        );
-
-        setGender(
-            profile?.gender || ""
-        );
-
-        setPhoneNumber(
-            profile?.user?.phone_number || ""
-        );
     };
 
     return (
         <section className="profile-section personal-info">
 
-            <div className="profile-section__header">
+            <div className="profile-section__header personal-info__header">
                 <div>
-                    {/* <span className="profile-section__eyebrow">
-                        PERSONAL
-                    </span> */}
-
                     <h2 className="profile-section__title">
                         Personal Information
                     </h2>
 
                     <p className="profile-section__description">
-                        Keep your personal details up to date.
+                        Your basic personal details.
                     </p>
                 </div>
-            </div>
 
-            {!hasPersonalData && !isAdding && (
-                <div className="profile-empty-state">
-
-                    <div className="profile-empty-state__icon">
-                        +
-                    </div>
-
-                    <div className="profile-empty-state__content">
-                        <h3>
-                            Personal information not added
-                        </h3>
-
-                        <p>
-                            Add your date of birth, gender,
-                            and phone number to complete
-                            your candidate profile.
-                        </p>
-                    </div>
-
+                {!isEditing && (
                     <button
                         type="button"
-                        className="profile-empty-state__button"
-                        onClick={() => {
-                            setError("");
-                            setIsAdding(true);
-                        }}
+                        className="personal-info__edit-button"
+                        onClick={handleEdit}
                     >
-                        + Add Personal Information
+                        Edit
                     </button>
+                )}
+            </div>
 
-                </div>
-            )}
-
-            {hasPersonalData && !isAdding && (
+            {!isEditing ? (
                 <div className="personal-info__grid">
 
                     <div className="profile-field">
@@ -184,9 +147,7 @@ function PersonalInfo({
                     </div>
 
                 </div>
-            )}
-
-            {isAdding && (
+            ) : (
                 <div className="personal-info__form">
 
                     <div className="personal-info__form-grid">
@@ -280,19 +241,18 @@ function PersonalInfo({
                         <button
                             type="button"
                             className="profile-form__save"
-                            onClick={handleAdd}
+                            onClick={handleSave}
                             disabled={saving}
                         >
                             {saving
                                 ? "Saving..."
-                                : "Save Information"}
+                                : "Save Changes"}
                         </button>
 
                     </div>
 
                 </div>
             )}
-
         </section>
     );
 }
