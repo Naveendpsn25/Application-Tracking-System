@@ -19,17 +19,23 @@ class Company(BaseModel):
     company_code = models.CharField(
         max_length=20,
         unique=True,
+        blank=True,
+        null=True,
         verbose_name="Company Code",
     )
 
     company_email = models.EmailField(
         unique=True,
+        blank=True,
+        null=True,
         verbose_name="Company Email",
     )
 
     company_phone = models.CharField(
         max_length=15,
         unique=True,
+        blank=True,
+        null=True,
         verbose_name="Company Phone",
     )
 
@@ -42,12 +48,16 @@ class Company(BaseModel):
     industry = models.CharField(
         max_length=50,
         choices=Industry.choices,
+        blank=True,
+        null=True,
         verbose_name="Industry",
     )
 
     company_size = models.CharField(
         max_length=50,
         choices=CompanySize.choices,
+        blank=True,
+        null=True,
         verbose_name="Company Size",
     )
 
@@ -72,6 +82,8 @@ class Company(BaseModel):
     )
 
     address = models.TextField(
+        blank=True,
+        null=True,
         verbose_name="Address",
     )
 
@@ -92,6 +104,8 @@ class Company(BaseModel):
 
     postal_code = models.CharField(
         max_length=20,
+        blank=True,
+        null=True,
         verbose_name="Postal Code",
     )
 

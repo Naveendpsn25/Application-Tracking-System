@@ -1,0 +1,210 @@
+/* -------------------------------- */
+/* Topbar */
+/* -------------------------------- */
+
+.recruiter-topbar {
+    height: 72px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-bottom: 1px solid #e8ebf0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 28px;
+}
+
+
+/* -------------------------------- */
+/* Actions */
+/* -------------------------------- */
+
+.recruiter-topbar-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+
+/* -------------------------------- */
+/* Hamburger */
+/* -------------------------------- */
+
+.recruiter-topbar-menu-button {
+    display: none;
+}
+
+
+/* -------------------------------- */
+/* Notification */
+/* -------------------------------- */
+
+.recruiter-topbar-icon-button {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.recruiter-topbar-icon-button:hover {
+    background: #f4f7fb;
+    transform: translateY(-1px);
+}
+
+.recruiter-topbar-notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+
+    filter: grayscale(1);
+    opacity: 0.72;
+}
+
+.recruiter-topbar-notification-dot {
+    width: 7px;
+    height: 7px;
+
+    position: absolute;
+    top: 7px;
+    right: 7px;
+
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+
+    background: #2563eb;
+}
+
+
+/* -------------------------------- */
+/* Avatar */
+/* -------------------------------- */
+
+.recruiter-topbar-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eaf1ff;
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+
+    user-select: none;
+}
+
+
+/* -------------------------------- */
+/* Tablet */
+/* -------------------------------- */
+
+@media (max-width: 768px) {
+
+    .recruiter-topbar {
+        height: 64px;
+        padding: 0 16px;
+    }
+
+    .recruiter-topbar-actions {
+        gap: 10px;
+    }
+
+    .recruiter-topbar-icon-button {
+        width: 38px;
+        height: 38px;
+    }
+
+    .recruiter-topbar-avatar {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+
+/* -------------------------------- */
+/* Mobile */
+/* -------------------------------- */
+
+@media (max-width: 450px) {
+
+    .recruiter-topbar {
+        height: 64px;
+        padding: 0 12px;
+    }
+
+    .recruiter-topbar-actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    /* Hamburger appears on LEFT */
+    .recruiter-topbar-menu-button {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 36px;
+        height: 36px;
+
+        margin-right: auto;
+
+        padding: 0;
+
+        border: 0;
+        border-radius: 8px;
+
+        background: transparent;
+        color: #273246;
+
+        font-size: 22px;
+
+        cursor: pointer;
+
+        flex-shrink: 0;
+    }
+
+    .recruiter-topbar-menu-button:hover {
+        background: #f4f7fb;
+        color: #2563eb;
+    }
+
+    .recruiter-topbar-icon-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .recruiter-topbar-avatar {
+        width: 34px;
+        height: 34px;
+    }
+}

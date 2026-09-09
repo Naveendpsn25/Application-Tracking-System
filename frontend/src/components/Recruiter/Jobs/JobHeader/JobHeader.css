@@ -1,0 +1,243 @@
+/* -------------------------------- */
+/* Job Header */
+/* -------------------------------- */
+
+.job-header {
+    width: 100%;
+    min-height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 26px 30px;
+    margin-bottom: 28px;
+
+    border: 1px solid #dbe7ff;
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(96, 165, 250, 0.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eef5ff 0%,
+            #f7faff 55%,
+            #e9f2ff 100%
+        );
+
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.07);
+}
+
+/* -------------------------------- */
+/* Header Content */
+/* -------------------------------- */
+
+.job-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.job-header-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    color: #ffffff;
+    font-size: 25px;
+
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.22);
+}
+
+/* -------------------------------- */
+/* Text */
+/* -------------------------------- */
+
+.job-header-text {
+    min-width: 0;
+}
+
+.job-header-label {
+    display: inline-block;
+
+    margin-bottom: 5px;
+
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.job-header-text h1 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 28px;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+.job-header-text p {
+    margin: 6px 0 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* -------------------------------- */
+/* Create Button */
+/* -------------------------------- */
+
+.job-header-create-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    flex-shrink: 0;
+
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.job-header-create-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 9px 20px rgba(37, 99, 235, 0.28);
+
+    background: linear-gradient(
+        135deg,
+        #1d4ed8,
+        #1e40af
+    );
+}
+
+.job-header-create-button:active {
+    transform: translateY(0);
+}
+
+.job-header-create-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 6px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    font-size: 17px;
+    line-height: 1;
+}
+
+/* -------------------------------- */
+/* Tablet */
+/* -------------------------------- */
+
+@media (max-width: 768px) {
+    .job-header {
+        min-height: auto;
+        padding: 22px;
+        border-radius: 15px;
+    }
+
+    .job-header-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .job-header-text h1 {
+        font-size: 25px;
+    }
+}
+
+/* -------------------------------- */
+/* Mobile */
+/* -------------------------------- */
+
+@media (max-width: 450px) {
+    .job-header {
+        align-items: stretch;
+        flex-direction: column;
+
+        gap: 18px;
+
+        padding: 20px 16px;
+        margin-bottom: 20px;
+    }
+
+    .job-header-content {
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .job-header-icon {
+        width: 44px;
+        height: 44px;
+
+        border-radius: 12px;
+
+        font-size: 20px;
+    }
+
+    .job-header-text h1 {
+        font-size: 23px;
+    }
+
+    .job-header-text p {
+        font-size: 13px;
+    }
+
+    .job-header-create-button {
+        width: 100%;
+        min-height: 44px;
+    }
+}

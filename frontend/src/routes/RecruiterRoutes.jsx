@@ -9,6 +9,14 @@ import RecruiterDashboard
 import PendingApproval
     from "../pages/Recruiter/PendingApproval/PendingApproval";
 
+import RecruiterLayout
+    from "../components/Recruiter/Layout/RecruiterLayout/RecruiterLayout";
+
+import Jobs from "../pages/Recruiter/Jobs/Jobs";
+
+import CreateJob from "../pages/Recruiter/Jobs/CreateJob/CreateJob";
+
+import JobDetails from "../components/Recruiter/Jobs/JobDetails/JobDetails";
 
 function RecruiterRoutes() {
     return (
@@ -35,14 +43,20 @@ function RecruiterRoutes() {
                         <RecruiterApprovalRoute />
                     }
                 >
-
                     <Route
-                        index
                         element={
-                            <RecruiterDashboard />
+                            <RecruiterLayout />
                         }
-                    />
+                    >
+                        <Route index element={<RecruiterDashboard />}/>
 
+                        <Route path="jobs" element={<Jobs />}/>
+
+                        <Route path="jobs/create" element={<CreateJob />}/>
+
+                        <Route path="jobs/details" element={<JobDetails />} />
+
+                    </Route>
                 </Route>
 
             </Route>
