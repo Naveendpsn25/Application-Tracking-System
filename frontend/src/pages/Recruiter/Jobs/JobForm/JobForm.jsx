@@ -1,16 +1,21 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useState,useEffect } from "react";
 import { jobFormSchema } from "./jobFormSchema";
 
 import jobService from "../../../../services/job/jobService";
 
+import { useNavigate } from "react-router-dom";
+
 import "./JobForm.css";
 
-function JobForm() {
+function JobForm({ mode = "create", job = null }) {
+    const navigate = useNavigate();
+    const [submitError, setSubmitError] = useState("");
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(jobFormSchema),
@@ -46,20 +51,107 @@ function JobForm() {
         },
     });
 
+    useEffect(() => {
+        if (mode === "edit" && job) {
+            reset({
+                company_name: job.company_name || "",
+                city: job.city || "",
+                state: job.state || "",
+                country: job.country || "",
+
+                job_title: job.job_title || "",
+                job_code: job.job_code || "",
+                employment_type: job.employment_type || "",
+                workplace_type: job.workplace_type || "",
+                experience_level: job.experience_level || "",
+
+                minimum_experience:
+                    job.minimum_experience !== null &&
+                    job.minimum_experience !== undefined
+                        ? String(job.minimum_experience)
+                        : "",
+
+                maximum_experience:
+                    job.maximum_experience !== null &&
+                    job.maximum_experience !== undefined
+                        ? String(job.maximum_experience)
+                        : "",
+
+                minimum_salary:
+                    job.minimum_salary !== null &&
+                    job.minimum_salary !== undefined
+                        ? String(job.minimum_salary)
+                        : "",
+
+                maximum_salary:
+                    job.maximum_salary !== null &&
+                    job.maximum_salary !== undefined
+                        ? String(job.maximum_salary)
+                        : "",
+
+                currency: job.currency || "INR",
+                vacancies: job.vacancies || 1,
+
+                location: job.location || "",
+                required_skills: job.required_skills || "",
+                qualification: job.qualification || "",
+
+                job_description: job.job_description || "",
+                responsibilities: job.responsibilities || "",
+                application_deadline:
+                    job.application_deadline || "",
+
+                is_featured: job.is_featured || false,
+            });
+        }
+    }, [mode, job, reset]);
+
     const onSubmit = async (data) => {
         try {
-            const response = await jobService.createJob({
-                jobData: {
-                    ...data,
-                    application_deadline:
-                        data.application_deadline || null,
-                },
-                action: "publish",
-            });
+            setSubmitError("");
 
-            console.log("Job published successfully:", response);
+            const jobData = {
+                ...data,
+                application_deadline:
+                    data.application_deadline || null,
+            };
+
+            let response;
+
+            if (mode === "edit") {
+                response = await jobService.updateJob({
+                    jobId: job.id,
+                    jobData,
+                });
+            } else {
+                response = await jobService.createJob({
+                    jobData,
+                    action: "publish",
+                });
+            }
+
+            console.log(
+                mode === "edit"
+                    ? "Job updated successfully:"
+                    : "Job published successfully:",
+                response
+            );
+
+            navigate("/recruiter/jobs");
         } catch (error) {
-            console.error("Job publish failed:", error);
+            console.error(
+                mode === "edit"
+                    ? "Job update failed:"
+                    : "Job publish failed:",
+                error
+            );
+
+            setSubmitError(
+                error.message ||
+                    (mode === "edit"
+                        ? "Failed to update job. Please try again."
+                        : "Failed to publish job. Please try again.")
+            );
         }
     };
 
@@ -68,6 +160,23 @@ function JobForm() {
     };
     return (
         <form className="job-form" onSubmit={handleSubmit(onSubmit, onInvalid)}>
+
+            {submitError && (
+                <div className="job-form-submit-error" role="alert">
+                    <span className="job-form-submit-error-icon">
+                        ⚠️
+                    </span>
+
+                    <div>
+                        <strong>
+                            {mode === "edit"
+                                ? "Unable to update job"
+                                : "Unable to publish job"}
+                        </strong>
+                        <p>{submitError}</p>
+                    </div>
+                </div>
+            )}
 
 
                     {/* Company Information */}
@@ -306,6 +415,10 @@ function JobForm() {
                             name="experience_level"
                             {...register("experience_level")}
                         >
+                            <option value="">
+                                Select experience level
+                            </option>
+
                             <option value="FRESHER">Fresher</option>
                             <option value="JUNIOR">Junior</option>
                             <option value="MID_LEVEL">Mid-Level</option>
@@ -778,6 +891,7 @@ function JobForm() {
                     <button
                         type="button"
                         className="job-form-cancel-button"
+                        onClick={() => navigate("/recruiter/jobs")}
                     >
                         Cancel
                     </button>
@@ -793,7 +907,7 @@ function JobForm() {
                         type="submit"
                         className="job-form-publish-button"
                     >
-                        Publish Job
+                        {mode === "edit" ? "Update Job" : "Publish Job"}
                     </button>
 
                 </div>

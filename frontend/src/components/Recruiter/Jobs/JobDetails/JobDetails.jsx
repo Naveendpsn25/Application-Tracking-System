@@ -1,8 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 import "./JobDetails.css";
+import jobService from "../../../../services/job/jobService";
+
 
 function JobDetails() {
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [deleteError, setDeleteError] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -43,6 +48,26 @@ function JobDetails() {
         return `${currency || "INR"} ${formatNumber(
             minimum || maximum
         )}`;
+    };
+
+    const handleDeleteJob = async () => {
+        try {
+            setDeleteLoading(true);
+            setDeleteError("");
+
+            await jobService.deleteJob(job.id);
+
+            navigate("/recruiter/jobs");
+        } catch (error) {
+            console.error("Job deletion failed:", error);
+
+            setDeleteError(
+                error.message ||
+                    "Failed to delete job. Please try again."
+            );
+        } finally {
+            setDeleteLoading(false);
+        }
     };
 
     if (!job) {
@@ -289,7 +314,6 @@ function JobDetails() {
 
             {/* Footer Actions */}
             <div className="job-details-actions">
-
                 <button
                     type="button"
                     className="job-details-secondary-button"
@@ -298,14 +322,93 @@ function JobDetails() {
                     ← Back to Jobs
                 </button>
 
+                <div className="job-details-action-group">
+                    <button
+                        type="button"
+                        className="job-details-delete-button"
+                        onClick={() => {
+                            setDeleteError("");
+                            setShowDeleteConfirm(true);
+                        }}
+                    >
+                        Delete Job
+                    </button>
+
+                    <button
+                        type="button"
+                        className="job-details-primary-button"
+                        onClick={() =>
+                            navigate(
+                                `/recruiter/jobs/edit/${job.id}`,
+                                {
+                                    state: { job },
+                                }
+                            )
+                        }
+                    >
+                        Edit Job
+                    </button>
+                </div>
+            </div>
+
+            {showDeleteConfirm && (
+    <div
+        className="job-delete-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="job-delete-title"
+    >
+        <div className="job-delete-modal-card">
+            <div className="job-delete-modal-icon">
+                🗑️
+            </div>
+
+            <h2 id="job-delete-title">
+                Delete this job?
+            </h2>
+
+            <p>
+                Are you sure you want to delete{" "}
+                <strong>{job.job_title}</strong>?
+                This action cannot be undone.
+            </p>
+
+            {deleteError && (
+                <div
+                    className="job-delete-modal-error"
+                    role="alert"
+                >
+                    ⚠️ {deleteError}
+                </div>
+            )}
+
+            <div className="job-delete-modal-actions">
                 <button
                     type="button"
-                    className="job-details-primary-button"
+                    className="job-delete-cancel-button"
+                    onClick={() => {
+                        setDeleteError("");
+                        setShowDeleteConfirm(false);
+                    }}
+                    disabled={deleteLoading}
                 >
-                    Edit Job
+                    Cancel
                 </button>
 
+                <button
+                    type="button"
+                    className="job-delete-confirm-button"
+                    onClick={handleDeleteJob}
+                    disabled={deleteLoading}
+                >
+                    {deleteLoading
+                        ? "Deleting..."
+                        : "Yes, Delete Job"}
+                </button>
             </div>
+        </div>
+    </div>
+)}
 
         </div>
     );

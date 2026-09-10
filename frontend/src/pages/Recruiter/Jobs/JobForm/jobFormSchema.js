@@ -131,14 +131,6 @@ export const jobFormSchema = z
             .boolean(),
     })
     .refine(
-        (data) => data.maximum_experience >= data.minimum_experience,
-        {
-            message:
-                "Maximum experience must be greater than or equal to minimum experience.",
-            path: ["maximum_experience"],
-        }
-    )
-    .refine(
         (data) =>
             Number(data.maximum_experience) >= Number(data.minimum_experience),
         {
@@ -152,10 +144,10 @@ export const jobFormSchema = z
         (data) =>
             data.minimum_salary === "" ||
             data.maximum_salary === "" ||
-            data.maximum_salary >= data.minimum_salary,
+            Number(data.maximum_salary) >= Number(data.minimum_salary),
         {
             message:
                 "Maximum salary must be greater than or equal to minimum salary.",
             path: ["maximum_salary"],
         }
-    )
+    );

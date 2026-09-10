@@ -18,6 +18,8 @@ import CreateJob from "../pages/Recruiter/Jobs/CreateJob/CreateJob";
 
 import JobDetails from "../components/Recruiter/Jobs/JobDetails/JobDetails";
 
+import EditJob from "../pages/Recruiter/Jobs/EditJob/EditJob";
+
 function RecruiterRoutes() {
     return (
         <Routes>
@@ -55,6 +57,8 @@ function RecruiterRoutes() {
                         <Route path="jobs/create" element={<CreateJob />}/>
 
                         <Route path="jobs/details" element={<JobDetails />} />
+
+                        <Route path="jobs/edit/:jobId"  element={<EditJob />}/>
 
                     </Route>
                 </Route>

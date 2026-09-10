@@ -4,10 +4,22 @@ from ...models import Job
 
 
 class JobSerializer(serializers.ModelSerializer):
-    company_name = serializers.CharField(write_only=True, max_length=255)
-    city = serializers.CharField(write_only=True, max_length=100)
-    state = serializers.CharField(write_only=True, max_length=100)
-    country = serializers.CharField(write_only=True, max_length=100)
+    company_name = serializers.CharField(
+        write_only=True,
+        max_length=255,
+    )
+    city = serializers.CharField(
+        write_only=True,
+        max_length=100,
+    )
+    state = serializers.CharField(
+        write_only=True,
+        max_length=100,
+    )
+    country = serializers.CharField(
+        write_only=True,
+        max_length=100,
+    )
 
     class Meta:
         model = Job
@@ -52,3 +64,13 @@ class JobSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        data["company_name"] = instance.company.company_name
+        data["city"] = instance.company.city
+        data["state"] = instance.company.state
+        data["country"] = instance.company.country
+
+        return data
